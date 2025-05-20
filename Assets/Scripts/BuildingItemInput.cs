@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class BuildingDraggableIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class BuildingItemInput : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     private Image image;
     private Transform parent;
@@ -10,7 +10,7 @@ public class BuildingDraggableIcon : MonoBehaviour, IBeginDragHandler, IDragHand
     private RectTransform canvasRectTransform;
     private Vector2 safePosition;
 
-    private BuildingPlacementRaycast raycast;
+    private BuildingItemPlacement placement;
 
     void Awake()
     {
@@ -19,8 +19,9 @@ public class BuildingDraggableIcon : MonoBehaviour, IBeginDragHandler, IDragHand
         rectTransform = GetComponent<RectTransform>();
         canvasRectTransform = FindFirstObjectByType<Canvas>().GetComponent<RectTransform>();
 
-        raycast = GetComponent<BuildingPlacementRaycast>();
-        raycast.enabled = false;
+        placement = GetComponent<BuildingItemPlacement>();
+        placement.isSelected = false;
+        placement.size = parent.GetComponent<BuildingItem>().building.info.size;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -29,7 +30,8 @@ public class BuildingDraggableIcon : MonoBehaviour, IBeginDragHandler, IDragHand
         transform.SetParent(canvasRectTransform);
         transform.SetAsLastSibling();
         image.raycastTarget = false;
-        raycast.enabled = true;
+        image.color = new Color(1.0f, 1.0f, 1.0f, 0.25f);
+        placement.isSelected = true;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -49,6 +51,7 @@ public class BuildingDraggableIcon : MonoBehaviour, IBeginDragHandler, IDragHand
         transform.SetParent(parent);
         rectTransform.anchoredPosition = safePosition;
         image.raycastTarget = true;
-        raycast.enabled = false;
+        image.color = Color.white;
+        placement.isSelected = false;
     }
 }
