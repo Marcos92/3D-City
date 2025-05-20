@@ -10,12 +10,17 @@ public class BuildingDraggableIcon : MonoBehaviour, IBeginDragHandler, IDragHand
     private RectTransform canvasRectTransform;
     private Vector2 safePosition;
 
+    private BuildingPlacementRaycast raycast;
+
     void Awake()
     {
         image = GetComponent<Image>();
         parent = transform.parent;
         rectTransform = GetComponent<RectTransform>();
         canvasRectTransform = FindFirstObjectByType<Canvas>().GetComponent<RectTransform>();
+
+        raycast = GetComponent<BuildingPlacementRaycast>();
+        raycast.enabled = false;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -24,6 +29,7 @@ public class BuildingDraggableIcon : MonoBehaviour, IBeginDragHandler, IDragHand
         transform.SetParent(canvasRectTransform);
         transform.SetAsLastSibling();
         image.raycastTarget = false;
+        raycast.enabled = true;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -43,5 +49,6 @@ public class BuildingDraggableIcon : MonoBehaviour, IBeginDragHandler, IDragHand
         transform.SetParent(parent);
         rectTransform.anchoredPosition = safePosition;
         image.raycastTarget = true;
+        raycast.enabled = false;
     }
 }
