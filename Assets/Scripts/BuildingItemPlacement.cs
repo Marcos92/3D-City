@@ -7,17 +7,24 @@ public class BuildingItemPlacement : MonoBehaviour
 
     private RaycastHit hit;
 
-    public bool isSelected;
+    [HideInInspector] public bool isSelected;
 
     private bool isValid;
     public bool IsValid => isValid;
 
-    public Vector3 size;
+    [HideInInspector] public Vector3 size;
 
-    void Awake()
+    [SerializeField] private SafeArea safeAreaPrefab;
+    private SafeArea safeArea;
+
+    void Start()
     {
         planeMask = LayerMask.GetMask("Plane");
         obstacleMask = LayerMask.GetMask("Obstacle");
+
+        safeArea = Instantiate(safeAreaPrefab);
+        safeArea.transform.localScale = size;
+        safeArea.gameObject.SetActive(false);
     }
 
     void FixedUpdate()
@@ -25,10 +32,13 @@ public class BuildingItemPlacement : MonoBehaviour
         if (!isSelected)
         {
             isValid = false;
-            return;
+        }
+        else
+        {
+            isValid = CanPlaceOnPlane() && !IsColliding();
         }
 
-        isValid = CanPlaceOnPlane() && !IsColliding();
+        UpdateSafeArea();
     }
 
     private bool CanPlaceOnPlane()
@@ -43,17 +53,23 @@ public class BuildingItemPlacement : MonoBehaviour
         return colliders.Length > 0;
     }
 
-    void OnDrawGizmos()
+    private void UpdateSafeArea()
     {
         if (!isSelected)
         {
+            safeArea.gameObject.SetActive(false);
             return;
         }
 
         if (CanPlaceOnPlane())
         {
-            Gizmos.color = IsColliding() ? Color.red : Color.green;
-            Gizmos.DrawCube(hit.point, size);
+            safeArea.gameObject.SetActive(true);
+            safeArea.transform.position = hit.point;
+            safeArea.SetValid(!IsColliding());
+        }
+        else
+        {
+            safeArea.gameObject.SetActive(false);
         }
     }
 }

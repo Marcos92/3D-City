@@ -101,6 +101,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55b3a94703f1d64f8bc91d643789d10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSelected: 0
+  size: {x: 0, y: 0, z: 0}
+  safeAreaPrefab: {fileID: 6340884890960742555, guid: bfa71f3e52af1524981ce44e723110fd, type: 3}
 --- !u!1 &7626814554384332077
 GameObject:
   m_ObjectHideFlags: 0
