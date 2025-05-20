@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class BuildingItemPlacement : MonoBehaviour
@@ -70,6 +71,14 @@ public class BuildingItemPlacement : MonoBehaviour
         else
         {
             safeArea.gameObject.SetActive(false);
+        }
+    }
+
+    public void PlaceBuilding(Building building)
+    {
+        if (isValid)
+        {
+            Instantiate(building, hit.point, Quaternion.identity);
         }
     }
 }

@@ -10,6 +10,7 @@ public class BuildingItemInput : MonoBehaviour, IBeginDragHandler, IDragHandler,
     private RectTransform canvasRectTransform;
     private Vector2 safePosition;
 
+    private Building building;
     private BuildingItemPlacement placement;
 
     void Awake()
@@ -19,9 +20,10 @@ public class BuildingItemInput : MonoBehaviour, IBeginDragHandler, IDragHandler,
         rectTransform = GetComponent<RectTransform>();
         canvasRectTransform = FindFirstObjectByType<Canvas>().GetComponent<RectTransform>();
 
+        building = parent.GetComponent<BuildingItem>().building;
         placement = GetComponent<BuildingItemPlacement>();
         placement.isSelected = false;
-        placement.size = parent.GetComponent<BuildingItem>().building.info.size;
+        placement.size = building.info.size;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -53,5 +55,6 @@ public class BuildingItemInput : MonoBehaviour, IBeginDragHandler, IDragHandler,
         image.raycastTarget = true;
         image.color = Color.white;
         placement.isSelected = false;
+        placement.PlaceBuilding(building);
     }
 }
