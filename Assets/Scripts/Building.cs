@@ -16,7 +16,7 @@ public class Building : MonoBehaviour
 
     void OnEnable()
     {
-        Instantiate(info.model, transform.position, Quaternion.identity, modelParent);
+        Instantiate(info.model, transform.position, transform.rotation, modelParent);
 
         if (!animateOnEnable)
         {

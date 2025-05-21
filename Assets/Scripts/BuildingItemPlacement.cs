@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class BuildingItemPlacement : MonoBehaviour
@@ -66,6 +65,7 @@ public class BuildingItemPlacement : MonoBehaviour
         {
             safeArea.gameObject.SetActive(true);
             safeArea.transform.position = hit.point;
+            safeArea.transform.rotation = hit.transform.rotation;
             safeArea.SetValid(!IsColliding());
         }
         else
@@ -78,7 +78,7 @@ public class BuildingItemPlacement : MonoBehaviour
     {
         if (isValid)
         {
-            Instantiate(building, hit.point, Quaternion.identity);
+            Instantiate(building, hit.point, hit.transform.rotation, hit.transform);
         }
     }
 }
