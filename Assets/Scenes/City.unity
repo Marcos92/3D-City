@@ -869,6 +869,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Restaurant
       objectReference: {fileID: 0}
+    - target: {fileID: 5617568751922710927, guid: b5c226a364a979b4d93ce548b7c72abf, type: 3}
+      propertyPath: animateOnEnable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6261548764632982368, guid: b5c226a364a979b4d93ce548b7c72abf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.3280525
@@ -1325,6 +1329,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7791430651989749380, guid: f0e3c7845d8234142be37aacf0f165fa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8588461851136509035, guid: f0e3c7845d8234142be37aacf0f165fa, type: 3}
+      propertyPath: animateOnEnable
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

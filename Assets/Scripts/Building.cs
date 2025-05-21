@@ -5,6 +5,8 @@ public class Building : MonoBehaviour
 {
     public BuildingInfo info;
     private Vector3 size;
+    [SerializeField] private Transform modelParent;
+    [SerializeField] private bool animateOnEnable = true;
 
     void Awake()
     {
@@ -14,7 +16,12 @@ public class Building : MonoBehaviour
 
     void OnEnable()
     {
-        Instantiate(info.model, transform.position, Quaternion.identity, transform);
+        Instantiate(info.model, transform.position, Quaternion.identity, modelParent);
+
+        if (!animateOnEnable)
+        {
+            GetComponent<Animator>().enabled = false;
+        }
     }
 
     void OnDrawGizmos()
