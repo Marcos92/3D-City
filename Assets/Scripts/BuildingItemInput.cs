@@ -33,6 +33,7 @@ public class BuildingItemInput : MonoBehaviour, IBeginDragHandler, IDragHandler,
         transform.SetAsLastSibling();
         image.raycastTarget = false;
         image.color = new Color(1.0f, 1.0f, 1.0f, 0.25f);
+        rectTransform.localScale = Vector3.one * 0.5f;
         placement.isSelected = true;
     }
 
@@ -54,6 +55,7 @@ public class BuildingItemInput : MonoBehaviour, IBeginDragHandler, IDragHandler,
         rectTransform.anchoredPosition = safePosition;
         image.raycastTarget = true;
         image.color = Color.white;
+        rectTransform.localScale = Vector3.one;
         placement.isSelected = false;
         placement.PlaceBuilding(building);
     }
